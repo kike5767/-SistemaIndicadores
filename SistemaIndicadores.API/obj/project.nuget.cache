@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "1ZcDOTCym9k=",
-  "success": false,
+  "dgSpecHash": "YMVeonRSk/w=",
+  "success": true,
   "projectFilePath": "C:\\Users\\DAVID\\OneDrive\\Escritorio\\SistemaIndicadores\\SistemaIndicadores.API\\SistemaIndicadores.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DAVID\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
@@ -21,7 +21,7 @@
     "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.1\\microsoft.entityframeworkcore.8.0.1.nupkg.sha512",
     "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.1\\microsoft.entityframeworkcore.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.1\\microsoft.entityframeworkcore.analyzers.8.0.1.nupkg.sha512",
-    "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.0\\microsoft.entityframeworkcore.design.8.0.0.nupkg.sha512",
+    "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.1\\microsoft.entityframeworkcore.design.8.0.1.nupkg.sha512",
     "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.1\\microsoft.entityframeworkcore.relational.8.0.1.nupkg.sha512",
     "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.1\\microsoft.entityframeworkcore.sqlserver.8.0.1.nupkg.sha512",
     "C:\\Users\\DAVID\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.1\\microsoft.entityframeworkcore.tools.8.0.1.nupkg.sha512",
@@ -85,15 +85,5 @@
     "C:\\Users\\DAVID\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\DAVID\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore.Design from 8.0.1 to 8.0.0. Reference the package directly from the project to select a different version. \r\n SistemaIndicadores.API -> Microsoft.EntityFrameworkCore.Tools 8.0.1 -> Microsoft.EntityFrameworkCore.Design (>= 8.0.1) \r\n SistemaIndicadores.API -> Microsoft.EntityFrameworkCore.Design (>= 8.0.0)",
-      "libraryId": "Microsoft.EntityFrameworkCore.Design",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }
