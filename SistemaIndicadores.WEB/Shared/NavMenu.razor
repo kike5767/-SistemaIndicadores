@@ -1,0 +1,62 @@
+@inject NavigationManager NavigationManager
+
+<MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+    
+    <AuthorizeView>
+        <Authorized>
+            <MudNavGroup Title="Indicadores" Icon="@Icons.Material.Filled.Assessment" Expanded="true">
+                <MudNavLink Href="indicadores" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">
+                    Lista de Indicadores
+                </MudNavLink>
+                <MudNavLink Href="indicadores/nuevo" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">
+                    Nuevo Indicador
+                </MudNavLink>
+                <MudNavLink Href="calculos" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Calculate">
+                    Cálculos
+                </MudNavLink>
+            </MudNavGroup>
+
+            <MudNavGroup Title="Categorías" Icon="@Icons.Material.Filled.Category" Expanded="true">
+                <MudNavLink Href="categorias" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">
+                    Lista de Categorías
+                </MudNavLink>
+                <MudNavLink Href="categorias/nueva" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">
+                    Nueva Categoría
+                </MudNavLink>
+            </MudNavGroup>
+
+            <AuthorizeView Roles="Administrador">
+                <Authorized>
+                    <MudNavGroup Title="Administración" Icon="@Icons.Material.Filled.AdminPanelSettings">
+                        <MudNavLink Href="usuarios" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.People">
+                            Usuarios
+                        </MudNavLink>
+                        <MudNavLink Href="configuracion" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Settings">
+                            Configuración
+                        </MudNavLink>
+                    </MudNavGroup>
+                </Authorized>
+            </AuthorizeView>
+
+            <MudNavLink Href="reportes" Icon="@Icons.Material.Filled.Assessment">Reportes</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+</MudNavMenu>
+
+<style>
+    .mud-nav-link {
+        transition: all 0.3s ease;
+    }
+    .mud-nav-link:hover {
+        background-color: var(--mud-palette-action-default-hover);
+        transform: translateX(4px);
+    }
+    .mud-nav-link.active {
+        font-weight: 600;
+        background-color: var(--mud-palette-primary-hover);
+    }
+    .mud-nav-group > .mud-nav-link {
+        padding-left: 24px;
+    }
+</style> 

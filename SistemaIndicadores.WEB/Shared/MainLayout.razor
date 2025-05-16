@@ -1,0 +1,88 @@
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+<MudThemeProvider Theme="@_currentTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h6" Class="ml-4">Sistema de Indicadores</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="@((e) => ToggleTheme())" />
+        <AuthorizeView>
+            <Authorized>
+                <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true">
+                    <ActivatorContent>
+                        <MudAvatar Color="Color.Secondary">@context.User.Identity?.Name?.FirstOrDefault()</MudAvatar>
+                    </ActivatorContent>
+                    <ChildContent>
+                        <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo("/perfil"))">Mi Perfil</MudMenuItem>
+                        <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo("/logout"))">Cerrar Sesión</MudMenuItem>
+                    </ChildContent>
+                </MudMenu>
+            </Authorized>
+            <NotAuthorized>
+                <MudButton Color="Color.Inherit" OnClick="@(() => NavigationManager.NavigateTo("/login"))">Iniciar Sesión</MudButton>
+            </NotAuthorized>
+        </AuthorizeView>
+    </MudAppBar>
+    
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu />
+    </MudDrawer>
+
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="my-4 pt-4">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _drawerOpen = true;
+    private MudTheme _currentTheme = new();
+
+    protected override void OnInitialized()
+    {
+        _currentTheme = new MudTheme
+        {
+            Palette = new PaletteLight
+            {
+                Primary = "#1976D2",
+                Secondary = "#388E3C",
+                AppbarBackground = "#1976D2",
+                Background = "#F5F5F5",
+                DrawerBackground = "#FFF",
+                DrawerText = "rgba(0,0,0, 0.7)",
+                Success = "#388E3C"
+            },
+            PaletteDark = new PaletteDark
+            {
+                Primary = "#2196F3",
+                Secondary = "#4CAF50",
+                Background = "#303030",
+                AppbarBackground = "#1E1E1E",
+                DrawerBackground = "#1E1E1E",
+                DrawerText = "rgba(255,255,255, 0.7)",
+                Success = "#4CAF50"
+            },
+            LayoutProperties = new LayoutProperties
+            {
+                DefaultBorderRadius = "4px"
+            }
+        };
+    }
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void ToggleTheme()
+    {
+        _currentTheme.Palette = _currentTheme.Palette == _currentTheme.PaletteDark ? new PaletteLight() : new PaletteDark();
+    }
+} 
