@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CoZXUBhHJBk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\DAVID\\OneDrive\\Escritorio\\SistemaIndicadores\\SistemaIndicadores.Shared\\SistemaIndicadores.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DAVID\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

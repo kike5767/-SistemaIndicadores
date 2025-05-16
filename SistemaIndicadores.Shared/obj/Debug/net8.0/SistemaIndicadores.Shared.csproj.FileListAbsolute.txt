@@ -1,0 +1,12 @@
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\bin\Debug\net8.0\SistemaIndicadores.Shared.deps.json
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\bin\Debug\net8.0\SistemaIndicadores.Shared.dll
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\bin\Debug\net8.0\SistemaIndicadores.Shared.pdb
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.AssemblyInfoInputs.cache
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.AssemblyInfo.cs
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.csproj.CoreCompileInputs.cache
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.sourcelink.json
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.dll
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\refint\SistemaIndicadores.Shared.dll
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\SistemaIndicadores.Shared.pdb
+C:\Users\DAVID\OneDrive\Escritorio\SistemaIndicadores\SistemaIndicadores.Shared\obj\Debug\net8.0\ref\SistemaIndicadores.Shared.dll
