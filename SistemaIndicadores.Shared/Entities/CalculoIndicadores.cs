@@ -14,16 +14,17 @@ namespace SistemaIndicadores.Shared.Entities
         public int Id { get; set; }
 
         // 🔹 Identificador del indicador al que pertenece el cálculo
-        [ForeignKey("Indicador")]
-        public int FkIdIndicador { get; set; }
+        [Required]
+        public int IndicadorId { get; set; }
+        public required Indicador Indicador { get; set; }
 
         // 🔹 Resultado del cálculo numérico
         [Required]
-        public decimal Resultado { get; set; }
+        [Range(0, double.MaxValue, ErrorMessage = "El resultado debe ser positivo.")]
+        public double Resultado { get; set; }
 
         // 🔹 Fecha en la que se realizó el cálculo
-        [Required]
-        public DateTime FechaCalculo { get; set; } = DateTime.Now;
+        public DateTime FechaCalculo { get; set; } = DateTime.UtcNow;
 
         // 🔹 Observaciones adicionales sobre el cálculo
         public string? Observaciones { get; set; }
