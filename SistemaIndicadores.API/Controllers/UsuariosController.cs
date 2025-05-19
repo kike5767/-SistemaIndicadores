@@ -1,33 +1,31 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using SistemaIndicadores.API.Data;
-using SistemaIndicadores.Shared.Entities;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using Microsoft.AspNetCore.Authorization; // ✅ Manejo de autorización de acceso
+using Microsoft.AspNetCore.Mvc; // ✅ Funcionalidad para definir controladores API
+using Microsoft.EntityFrameworkCore; // ✅ Manejo de Entity Framework para base de datos
+using Microsoft.IdentityModel.Tokens; // ✅ Manejo de seguridad para generación de tokens JWT
+using SistemaIndicadores.API.Data; // ✅ Importa el contexto de datos del proyecto
+using SistemaIndicadores.Shared.Entities; // ✅ Importa las entidades compartidas
+using System.IdentityModel.Tokens.Jwt; // ✅ Manejo de JWT para autenticación
+using System.Security.Claims; // ✅ Manejo de claims de seguridad
+using System.Text; // ✅ Codificación para clave JWT
 
-namespace SistemaIndicadores.API.Controllers;
+namespace SistemaIndicadores.API.Controllers; // ✅ Espacio de nombres correcto
 
 [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
-{
-    private readonly DataContext _context;
-    private readonly IConfiguration _configuration;
+    {
+    private readonly DataContext _context; // 📌 Instancia del contexto de datos
+    private readonly IConfiguration _configuration; // 📌 Manejo de configuración para JWT
 
     public UsuariosController(DataContext context, IConfiguration configuration)
-    {
-        _context = context;
+        {
+            _context = context;
         _configuration = configuration;
     }
 
     /// <summary>
     /// Autentica un usuario y genera un token JWT
     /// </summary>
-    /// <param name="loginModel">Credenciales del usuario</param>
-    /// <returns>Token JWT si la autenticación es exitosa</returns>
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login([FromBody] LoginModel loginModel)
     {
@@ -36,7 +34,7 @@ namespace SistemaIndicadores.API.Controllers;
 
         if (usuario == null || !BCrypt.Net.BCrypt.Verify(loginModel.Password, usuario.Password))
         {
-            return Unauthorized("Credenciales inválidas");
+            return Unauthorized("Credenciales inválidas"); // ⚠️ Verifica si las credenciales son correctas
         }
 
         var token = GenerateJwtToken(usuario);
@@ -46,28 +44,24 @@ namespace SistemaIndicadores.API.Controllers;
     /// <summary>
     /// Obtiene todos los usuarios activos
     /// </summary>
-        [HttpGet]
+    [HttpGet]
     [Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
     {
         return await _context.Usuarios
             .Where(u => u.Activo)
-                    .ToListAsync();
+            .ToListAsync(); // ✅ Filtra usuarios activos
     }
 
     /// <summary>
     /// Obtiene un usuario por su ID
     /// </summary>
-        [HttpGet("{id}")]
+    [HttpGet("{id}")]
     [Authorize(Roles = "Administrador")]
     public async Task<ActionResult<Usuario>> GetUsuario(int id)
     {
         var usuario = await _context.Usuarios.FindAsync(id);
-
-        if (usuario == null || !usuario.Activo)
-        {
-            return NotFound();
-        }
+        if (usuario == null || !usuario.Activo) return NotFound(); // ⚠️ Validación si el usuario no existe
 
         return usuario;
     }
@@ -81,10 +75,10 @@ namespace SistemaIndicadores.API.Controllers;
     {
         if (await _context.Usuarios.AnyAsync(u => u.Email == usuario.Email))
         {
-            return BadRequest("El email ya está registrado");
+            return BadRequest("El email ya está registrado"); // ⚠️ Validación de duplicados
         }
 
-        usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
+        usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password); // ✅ Cifrado seguro de contraseña
         usuario.FechaCreacion = DateTime.Now;
         usuario.Activo = true;
 
@@ -101,20 +95,14 @@ namespace SistemaIndicadores.API.Controllers;
     [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
     {
-        if (id != usuario.Id)
-        {
-            return BadRequest();
-        }
+        if (id != usuario.Id) return BadRequest();
 
         var usuarioExistente = await _context.Usuarios.FindAsync(id);
-        if (usuarioExistente == null)
-        {
-            return NotFound();
-        }
+        if (usuarioExistente == null) return NotFound();
 
         if (await _context.Usuarios.AnyAsync(u => u.Email == usuario.Email && u.Id != id))
         {
-            return BadRequest("El email ya está registrado por otro usuario");
+            return BadRequest("El email ya está registrado por otro usuario"); // ⚠️ Validación de duplicados
         }
 
         usuarioExistente.Nombre = usuario.Nombre;
@@ -126,43 +114,25 @@ namespace SistemaIndicadores.API.Controllers;
         usuarioExistente.Rol = usuario.Rol;
         usuarioExistente.FechaModificacion = DateTime.Now;
 
-        try
-        {
                 await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!UsuarioExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-
-        return NoContent();
+                return NoContent();
     }
 
     /// <summary>
     /// Elimina un usuario (baja lógica)
     /// </summary>
-    [HttpDelete("{id}")]
+        [HttpDelete("{id}")]
     [Authorize(Roles = "Administrador")]
-    public async Task<IActionResult> DeleteUsuario(int id)
-    {
-        var usuario = await _context.Usuarios.FindAsync(id);
-        if (usuario == null)
-        {
-            return NotFound();
-        }
+        public async Task<IActionResult> DeleteUsuario(int id)
+            {
+                var usuario = await _context.Usuarios.FindAsync(id);
+        if (usuario == null) return NotFound();
 
         usuario.Activo = false;
         usuario.FechaModificacion = DateTime.Now;
-        await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-        return NoContent();
+                return NoContent();
     }
 
     private bool UsuarioExists(int id)

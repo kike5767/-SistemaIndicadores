@@ -1,0 +1,92 @@
+CREATE TABLE usuario (
+    email VARCHAR(100) PRIMARY KEY,
+    contrasena VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE rol (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE rol_usuario (
+    fkemail VARCHAR(100) NOT NULL,
+    fkidrol INT NOT NULL,
+    PRIMARY KEY (fkemail, fkidrol),
+    FOREIGN KEY (fkemail) REFERENCES usuario(email) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (fkidrol) REFERENCES rol(id)
+);
+
+CREATE TABLE indicador (
+    id INT PRIMARY KEY IDENTITY(30,1),
+    codigo VARCHAR(50) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    objetivo VARCHAR(4000) NOT NULL,
+    alcance VARCHAR(1000) NOT NULL,
+    formula VARCHAR(1000) NOT NULL,
+    fkidtipoindicador INT NOT NULL,
+    fkidunidadmedicion INT NOT NULL,
+    meta VARCHAR(1000) NOT NULL,
+    fkidsentido INT NOT NULL,
+    fkidfrecuencia INT NOT NULL,
+    FOREIGN KEY (fkidtipoindicador) REFERENCES tipoindicador(id),
+    FOREIGN KEY (fkidunidadmedicion) REFERENCES unidadmedicion(id),
+    FOREIGN KEY (fkidsentido) REFERENCES sentido(id),
+    FOREIGN KEY (fkidfrecuencia) REFERENCES frecuencia(id)
+);
+
+CREATE TABLE resultadoindicador (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    resultado FLOAT NOT NULL,
+    fechacalculo DATETIME NOT NULL DEFAULT GETDATE(),
+    fkidindicador INT NOT NULL,
+    FOREIGN KEY (fkidindicador) REFERENCES indicador(id)
+);
+
+CREATE TABLE fuente (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(2000) NOT NULL
+);
+
+CREATE TABLE fuentesporindicador (
+    fkidfuente INT NOT NULL,
+    fkidindicador INT NOT NULL,
+    PRIMARY KEY (fkidfuente, fkidindicador),
+    FOREIGN KEY (fkidfuente) REFERENCES fuente(id),
+    FOREIGN KEY (fkidindicador) REFERENCES indicador(id)
+);
+
+CREATE TABLE actor (
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(200) NOT NULL,
+    fkidtipoactor INT NOT NULL,
+    FOREIGN KEY (fkidtipoactor) REFERENCES tipoactor(id)
+);
+
+CREATE TABLE responsablesporindicador (
+    fkidresponsable VARCHAR(50) NOT NULL,
+    fkidindicador INT NOT NULL,
+    fechaasignacion DATETIME DEFAULT GETDATE(),
+    PRIMARY KEY (fkidresponsable, fkidindicador),
+    FOREIGN KEY (fkidresponsable) REFERENCES actor(id),
+    FOREIGN KEY (fkidindicador) REFERENCES indicador(id)
+);
+
+CREATE TABLE variable (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(200) NOT NULL,
+    fechacreacion DATETIME DEFAULT GETDATE(),
+    fkemailusuario VARCHAR(100) NOT NULL,
+    FOREIGN KEY (fkemailusuario) REFERENCES usuario(email)
+);
+
+CREATE TABLE variablesporindicador (
+    id INT PRIMARY KEY IDENTITY(20,1),
+    fkidvariable INT NOT NULL,
+    fkidindicador INT NOT NULL,
+    dato FLOAT NOT NULL,
+    fkemailusuario VARCHAR(100) NOT NULL,
+    fechadato DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (fkidvariable) REFERENCES variable(id),
+    FOREIGN KEY (fkidindicador) REFERENCES indicador(id),
+    FOREIGN KEY (fkemailusuario) REFERENCES usuario(email)
+);
